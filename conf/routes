@@ -8,7 +8,7 @@ GET      /user_view                       controllers.UserController.userView(na
 GET      /user_list                       controllers.UserController.userList
 POST     /user_save                       controllers.UserController.userSave
 POST     /user_update                     controllers.UserController.userUpdate
-DELETE   /user_delete                     controllers.UserController.userDelete
+GET      /user_delete                     controllers.UserController.userDelete
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /assets/*file               controllers.Assets.at(path="/public", file)

@@ -22,6 +22,7 @@ object UserController extends Controller {
 
   def userView(name: String) = Action {
     implicit val barWrites = Json.writes[User]
+
     val json = inTransaction {
       val users = from(AppDB.userTable)(userTable => where(userTable.name === Option[String](name))
         select (userTable))
@@ -45,26 +46,22 @@ object UserController extends Controller {
   def userSave = Action { implicit request =>
     userForm.bindFromRequest.value map { user =>
       inTransaction(AppDB.userTable insert user)
-      Redirect(routes.UserController.index())
+      Redirect(routes.UserController.index)
     } getOrElse BadRequest
   }
 
-  //UPDATE
   def userUpdate = Action { implicit request =>
     userForm.bindFromRequest.value map { user =>
-      inTransaction(AppDB.userTable insert user)
-      Redirect(routes.UserController.index())
+      inTransaction(AppDB.userTable deleteWhere (x => x.id === "윤창희") )
+      Redirect(routes.UserController.index)
     } getOrElse BadRequest
   }
 
   //DELETE
-  def userDelete(id: String) = Action {
-    implicit val barWrites = Json.writes[User]
-    val json = inTransaction {
-      val users = from(AppDB.userTable)(userTable =>
-        select(userTable))
-      Json.toJson(users)
-    }
-    Ok(json)
+  def userDelete = Action { implicit request =>
+    userForm.bindFromRequest.value map { user =>
+      inTransaction(AppDB.userTable deleteWhere (x => x.name ===  Option[String]("윤창희")) )
+      Redirect(routes.UserController.index)
+    } getOrElse BadRequest
   }
 }

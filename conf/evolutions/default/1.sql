@@ -7,7 +7,13 @@ CREATE TABLE `mt_user` (
 	`name` varchar(255) DEFAULT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `mt_company` (
+	`ccid` varchar(255) NOT NULL,
+	`name` varchar(255) DEFAULT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 # --- !Downs
+DROP TABLE `mt_company`;
 DROP TABLE `mt_user`;
 
 
