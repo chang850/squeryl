@@ -1,0 +1,15 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#user
+GET      /                                controllers.UserController.index
+GET      /user_view                       controllers.UserController.userView(name:String)
+GET      /user_list                       controllers.UserController.userList
+POST     /user_save                       controllers.UserController.userSave
+POST     /user_update                     controllers.UserController.userUpdate
+DELETE   /user_delete                     controllers.UserController.userDelete
+
+# Map static resources from the /public folder to the /assets URL path
+GET      /assets/*file               controllers.Assets.at(path="/public", file)
+GET      /webjars/*file              controllers.WebJarAssets.at(file)
