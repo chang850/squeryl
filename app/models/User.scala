@@ -2,8 +2,10 @@ package models
 
 import org.squeryl.KeyedEntity
 
-case class User(name: Option[String]) extends KeyedEntity[String]{
-  val id: String = "name"
+case class User(id: Long, name: Option[String]) extends KeyedEntity[Long]
+
+object User {
+
 }
 
 

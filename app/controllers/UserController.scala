@@ -12,9 +12,22 @@ object UserController extends Controller {
 
   val userForm = Form(
     mapping(
+      "id" -> optional(longNumber),
       "name" -> optional(text)
-    )(User.apply)(User.unapply)
+    )(userFormApply)(userFormUnApply)
   )
+
+  private def userFormApply(id: Option[Long], name: Option[String]) = {
+    val userId = id match {
+      case Some(long) =>long
+      case None => -1L
+    }
+    User.apply(userId, name)
+  }
+
+  private def userFormUnApply(user: User) = {
+    Option(Some(user.id), user.name)
+  }
 
   def index = Action {
     Ok(views.html.index(userForm))
@@ -41,18 +54,19 @@ object UserController extends Controller {
     }
     Ok(json)
   }
-
   //SAVE
-  def userSave = Action { implicit request =>
-    userForm.bindFromRequest.value map { user =>
-      inTransaction(AppDB.userTable insert user)
-      Redirect(routes.UserController.index)
-    } getOrElse BadRequest
+  def userSave = Action {
+    implicit request =>
+      userForm.bindFromRequest.value map {
+        user => inTransaction(
+          AppDB.userTable insert user)
+          Redirect(routes.UserController.index)
+      } getOrElse BadRequest
   }
 
   def userUpdate = Action { implicit request =>
     userForm.bindFromRequest.value map { user =>
-      inTransaction(AppDB.userTable deleteWhere (x => x.id === "윤창희") )
+      inTransaction(AppDB.userTable deleteWhere (x => x.name === Option[String]("윤창희")))
       Redirect(routes.UserController.index)
     } getOrElse BadRequest
   }
@@ -60,7 +74,7 @@ object UserController extends Controller {
   //DELETE
   def userDelete = Action { implicit request =>
     userForm.bindFromRequest.value map { user =>
-      inTransaction(AppDB.userTable deleteWhere (x => x.name ===  Option[String]("윤창희")) )
+      inTransaction(AppDB.userTable deleteWhere (x => x.name === Option[String]("윤창희")))
       Redirect(routes.UserController.index)
     } getOrElse BadRequest
   }

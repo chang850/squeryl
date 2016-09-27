@@ -3,13 +3,16 @@
 # --- !Ups
 
 CREATE TABLE `mt_user` (
-	`id` varchar(255) NOT NULL,
-	`name` varchar(255) DEFAULT NULL
+	`id` bigint(20) NOT NULL AUTO_INCREMENT,
+	`name` varchar(255) DEFAULT NULL,
+	PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `mt_company` (
-	`ccid` varchar(255) NOT NULL,
-	`name` varchar(255) DEFAULT NULL
+	`id` bigint(20) NOT NULL,
+	`name` varchar(255) DEFAULT NULL,
+	`description` varchar(255) DEFAULT NULL,
+	PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # --- !Downs

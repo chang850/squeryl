@@ -1,7 +1,11 @@
 package models
 
-import org.squeryl.annotations.ColumnBase
+import org.squeryl.KeyedEntity
 
-case class Company(val id:String, val name: String, val address: Option[String]){
+case class Company(id: Long, name: String, description: String) extends KeyedEntity[Long] {
+
+}
+
+object Company {
 
 }
