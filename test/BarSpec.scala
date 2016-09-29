@@ -1,4 +1,4 @@
-import config.AppDB
+import config.DBSchema
 import models.Bar
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
@@ -11,7 +11,7 @@ class BarSpec extends FlatSpec with ShouldMatchers {
   "A Bar" should "be creatable" in {
     running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
       inTransaction {
-        val bar = AppDB.barTable insert Bar(Some("foo"))
+        val bar = DBSchema.barTable insert Bar(Some("foo"))
         bar.id should not equal(0)
       }
     }

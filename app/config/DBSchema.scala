@@ -4,7 +4,8 @@ import models.{Company, User}
 import org.squeryl.Schema
 import org.squeryl.PrimitiveTypeMode._
 
-object AppDB extends Schema {
+object DBSchema extends Schema {
+
   val userTable = table[User]("mt_user")
   val companyTable = table[Company]("mt_company")
 
@@ -15,4 +16,6 @@ object AppDB extends Schema {
   on(companyTable) {p => declare{
     p.id is(autoIncremented)
   }}
+  //Relation
+  val companyToUser = oneToManyRelation(companyTable, userTable).via((c,u) => c.id === u.ccid)
 }

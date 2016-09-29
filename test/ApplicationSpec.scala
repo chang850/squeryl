@@ -1,4 +1,4 @@
-import config.AppDB
+import config.DBSchema
 import controllers.routes
 import models.Bar
 import org.scalatest.FlatSpec
@@ -20,7 +20,7 @@ class ApplicationSpec extends FlatSpec with ShouldMatchers {
   
   "A request to the getBars Action" should "respond with data" in {
     running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
-      inTransaction(AppDB.barTable insert Bar(Some("foo")))
+      inTransaction(DBSchema.barTable insert Bar(Some("foo")))
 
       val result = controllers.Application.getBars(FakeRequest())
       status(result) should equal (OK)
