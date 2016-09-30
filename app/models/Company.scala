@@ -13,9 +13,9 @@ case class Company(@Column("ccid") id: Long, name: String, description: String) 
 object Company{
   def list = from(DBSchema.companyTable)(companyTable => select(companyTable))
   def view(name: String) = from(DBSchema.companyTable)(companyTable => where(companyTable.name === name) select (companyTable))
-  def save(x: Company) = { inTransaction( DBSchema.companyTable insert x) }
-  def delete(name: String) = { inTransaction(DBSchema.companyTable deleteWhere (x => x.name === name)) }
-  def update(x: Company) = { inTransaction(DBSchema.companyTable update x)}
+  def save(x: Company) =  inTransaction( DBSchema.companyTable insert x)
+  def delete(name: String) =  inTransaction(DBSchema.companyTable deleteWhere (x => x.name === name))
+  def update(x: Company) = inTransaction(DBSchema.companyTable update x)
 }
 
 
