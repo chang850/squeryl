@@ -48,6 +48,16 @@ object UserController extends Controller {
 
   def userList = Action {
     implicit val barWrites = Json.writes[User]
+    val json = inTransaction {
+      val users =User.list
+      Json.toJson(users)
+    }
+    Ok(json)
+  }
+
+
+  /*def userList = Action {
+    implicit val barWrites = Json.writes[User]
     implicit val barWrites2 = Json.writes[Company]
     val json = inTransaction {
       val users =
@@ -56,7 +66,7 @@ object UserController extends Controller {
       Json.toJson(users)
     }
     Ok(json)
-  }
+  }*/
 
   //조인문
   /*val json = inTransaction {
